@@ -1,3 +1,7 @@
+# GetTradeOrders
+
+Endpoint for retrieving orders. Multiple arguments/filters can be specified or combined together. A request with no filter returns all orders in the system.
+
 ## Filter inputs
 
 | Name | Type | Description | Mandatory | Available from version |
@@ -77,7 +81,7 @@
 
 ### **C# with**
 
-```
+```csharp
 //Use the GetTradeOrders method to get all trading related orders with a certain reference in the BFS instance and write
 //the information in the console
 var client = new BFSServiceReference.bfsapiSoapClient();
@@ -127,7 +131,7 @@ var accounttypes = client.GetTradeOrders(new BFSServiceReference.GetTradeOrdersR
         CreatedDate = true,
         ExecutionInterface = true,
         IsPrePayed = true,
-		ExternalFundBatchOrder = true,
+        ExternalFundBatchOrder = true,
     },
 });
 
@@ -181,8 +185,8 @@ foreach (var c in accounttypes.Result)
         + c.CreatedDate
         + ","
         + c.IsPrePayed
-		+ ","
-		+ c.ExternalFundBatchOrder
+        + ","
+        + c.ExternalFundBatchOrder
 
         );
 }
