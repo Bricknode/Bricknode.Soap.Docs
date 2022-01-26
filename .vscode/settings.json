@@ -1,0 +1,20 @@
+{
+    "rest-client.environmentVariables": {
+        "$shared": {
+            "apiUrl": "https://bfs1.bricknode.com/bfsqa/api/bfsapi.asmx",
+            "userName": "admin",
+            "password": "Passw0rd*",
+            "identify": "XgVPXcYCNtYetEg6KYBemQQmzfbXVr",
+            "allOrderFields": "<BrickId>true</BrickId><TradeOrderType>true</TradeOrderType><Account>true</Account><CashAmount>true</CashAmount><InstrumentAmount>true</InstrumentAmount><TradeOrderDirectionKey>true</TradeOrderDirectionKey><Instrument>true</Instrument><Cash>true</Cash><Price>true</Price><State>true</State><IsUnitOrder>true</IsUnitOrder><OrderNo>true</OrderNo><LimitPrice>true</LimitPrice><CashTradeDate>true</CashTradeDate><CashSettlementDate>true</CashSettlementDate><InstrumentTradeDate>true</InstrumentTradeDate><InstrumentSettlementDate>true</InstrumentSettlementDate><ExternalReference>true</ExternalReference><OrderSettlementType>true</OrderSettlementType><ExecutionInterfaceKey>true</ExecutionInterfaceKey><ExecutionInterface>true</ExecutionInterface><AllocationOrder>true</AllocationOrder><AllocationInstance>true</AllocationInstance><CreatedDate>true</CreatedDate><IsPrePayed>true</IsPrePayed><ExternalFundBatchOrder>true</ExternalFundBatchOrder><FundBatchOrder>true</FundBatchOrder><DisplayPercentagePrice>true</DisplayPercentagePrice><CustomFields>true</CustomFields><IsNominalValueOrderEntry>true</IsNominalValueOrderEntry><SellType>false</SellType><DecisionMakerWithinFirm>false</DecisionMakerWithinFirm><FeeAmount>true</FeeAmount><OrderFeeCategories>true</OrderFeeCategories><OrderTypeKey>true</OrderTypeKey><Reseller>true</Reseller><FilledCashAmount>true</FilledCashAmount><FilledInstrumentAmount>true</FilledInstrumentAmount><FourEyesStatus>true</FourEyesStatus><SubscriptionOrderId>true</SubscriptionOrderId><BusinessEventId>true</BusinessEventId><NoteId>true</NoteId>"
+        },
+        "local": {
+            "apiUrl": "https://192.168.42.9:45456/bfsapi.asmx",
+        },
+        "test": {
+            "apiUrl": "{{$shared apiUrl}}",
+        },
+        "tbc": {
+            "apiUrl": "https://bfs1.bricknode.com/tbccapitaldemo/api/bfsapi.asmx"
+        }
+    }
+}
