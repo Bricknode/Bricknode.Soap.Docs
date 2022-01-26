@@ -1,6 +1,7 @@
 {
     "recommendations": [
         "humao.rest-client",
-        "dotjoshjohnson.xml"
+        "dotjoshjohnson.xml",
+        "davidanson.vscode-markdownlint"
     ]
 }
