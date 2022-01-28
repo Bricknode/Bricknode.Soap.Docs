@@ -77,9 +77,58 @@ Endpoint for retrieving orders. Multiple arguments/filters can be specified or c
 | BusinessEventId | Guid | The Guid of the associated business event to the order. | 2.40 |
 | NoteId | Guid | The Guid of the associated trade note to the order. | 2.40 |
 
+## Full list of fields for a request
+
+```xml
+<Fields>
+    <BrickId>true</BrickId>
+    <TradeOrderType>true</TradeOrderType>
+    <Account>true</Account>
+    <CashAmount>true</CashAmount>
+    <InstrumentAmount>true</InstrumentAmount>
+    <TradeOrderDirectionKey>true</TradeOrderDirectionKey>
+    <Instrument>true</Instrument>
+    <Cash>true</Cash>
+    <Price>true</Price>
+    <State>true</State>
+    <IsUnitOrder>true</IsUnitOrder>
+    <OrderNo>true</OrderNo>
+    <LimitPrice>true</LimitPrice>
+    <CashTradeDate>true</CashTradeDate>
+    <CashSettlementDate>true</CashSettlementDate>
+    <InstrumentTradeDate>true</InstrumentTradeDate>
+    <InstrumentSettlementDate>true</InstrumentSettlementDate>
+    <ExternalReference>true</ExternalReference>
+    <OrderSettlementType>true</OrderSettlementType>
+    <ExecutionInterfaceKey>true</ExecutionInterfaceKey>
+    <ExecutionInterface>true</ExecutionInterface>
+    <AllocationOrder>true</AllocationOrder>
+    <AllocationInstance>true</AllocationInstance>
+    <CreatedDate>true</CreatedDate>
+    <IsPrePayed>true</IsPrePayed>
+    <ExternalFundBatchOrder>true</ExternalFundBatchOrder>
+    <FundBatchOrder>true</FundBatchOrder>
+    <DisplayPercentagePrice>true</DisplayPercentagePrice>
+    <CustomFields>true</CustomFields>
+    <IsNominalValueOrderEntry>true</IsNominalValueOrderEntry>
+    <SellType>false</SellType>
+    <DecisionMakerWithinFirm>false</DecisionMakerWithinFirm>
+    <FeeAmount>true</FeeAmount>
+    <OrderFeeCategories>true</OrderFeeCategories>
+    <OrderTypeKey>true</OrderTypeKey>
+    <Reseller>true</Reseller>
+    <FilledCashAmount>true</FilledCashAmount>
+    <FilledInstrumentAmount>true</FilledInstrumentAmount>
+    <FourEyesStatus>true</FourEyesStatus>
+    <SubscriptionOrderId>true</SubscriptionOrderId>
+    <BusinessEventId>true</BusinessEventId>
+    <NoteId>true</NoteId>
+</Fields>
+```
+
 ## Code examples
 
-### **C# with**
+### C# with our SDK
 
 ```csharp
 //Use the GetTradeOrders method to get all trading related orders with a certain reference in the BFS instance and write
@@ -186,8 +235,6 @@ foreach (var c in accounttypes.Result)
         + ","
         + c.IsPrePayed
         + ","
-        + c.ExternalFundBatchOrder
-
-        );
+        + c.ExternalFundBatchOrder);
 }
 ```
