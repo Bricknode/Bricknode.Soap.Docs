@@ -1,0 +1,316 @@
+### create trade orders (a buy order, with custom field)
+@accountId = 48d42589-8b74-4804-b762-c7f609b8a3cd
+@instrumentId = 2841d9de-d2bb-43e8-9a58-696c2a213c16
+@amount = 42.00
+@price = 1.00
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/CreateTradeOrders"
+Content-Type: text/xml; charset=utf-8
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <CreateTradeOrders xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Entities>
+                    <TradeOrder>
+                        <BrickId>00000000-0000-0000-0000-000000000000</BrickId>
+                        <CreatedDate>0001-01-01T00:00:00</CreatedDate>
+                        <CustomFields>
+                            <CustomField>
+                                <BrickId>00000000-0000-0000-0000-000000000000</BrickId>
+                                <CreatedDate>0001-01-01T00:00:00</CreatedDate>
+                                <FieldName>MyCustomField</FieldName>
+                                <Value>SecretValue</Value>
+                                <HiddenFromGui>false</HiddenFromGui>
+                            </CustomField>
+                        </CustomFields>
+                        <TradeOrderDirectionKey>Buy</TradeOrderDirectionKey>
+                        <Account>{{accountId}}</Account>
+                        <Instrument>{{instrumentId}}</Instrument>
+                        <InstrumentAmount>{{amount}}</InstrumentAmount>
+                        <CashAmount xsi:nil="true"/>
+                        <CommissionAmount>0</CommissionAmount>
+                        <OverrideCommissionAmount>false</OverrideCommissionAmount>
+                        <IsUnitOrder>true</IsUnitOrder>
+                        <ReserveAssets>false</ReserveAssets>
+                        <LimitPrice>{{price}}</LimitPrice>
+                        <ExternalReference>MyExternalReference</ExternalReference>
+                        <ExecutionInterfaceKey>Manual</ExecutionInterfaceKey>
+                        <OrderDateAndTime>0001-01-01T00:00:00</OrderDateAndTime>
+                        <OrderSettlementType>PAYMENT</OrderSettlementType>
+                        <DecisionMakerWithinFirm>00000000-0000-0000-0000-000000000000</DecisionMakerWithinFirm>
+                        <ShortSellingIndicator xsi:nil="true"/>
+                        <BusinessEventId>00000000-0000-0000-0000-000000000000</BusinessEventId>
+                    </TradeOrder>
+                </Entities>
+            </req>
+        </CreateTradeOrders>
+    </s:Body>
+</s:Envelope>
+
+
+### get all trade order created one day around on a specified account
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: http://tempuri.org/GetTradeOrders
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soap:Body>
+      <GetTradeOrders xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+               <UserName>{{userName}}</UserName>
+               <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Args>
+                <Accounts>
+                    <guid>{{accountId}}</guid>
+                </Accounts>
+                <CreatedDateFrom>{{$datetime iso8601 -1 d}}</CreatedDateFrom>
+                <CreatedDateTo>{{$datetime iso8601 1 d}}</CreatedDateTo>
+            </Args>
+            <Fields>
+                {{allOrderFields}}
+            </Fields>
+         </req>
+      </GetTradeOrders>
+   </soap:Body>
+</soap:Envelope>
+
+
+### execute trade orders
+@orderId = 91eaa03e-1af3-4881-8157-3b6b89f48144
+@amount = 42.00
+@price = 1.00
+@counterPartyAccountId = 6a11b5fe-5941-44fc-b38a-58576a48ecdb
+@feeAccountId = c62aed0a-f792-4615-a7c1-3c6a8ec875a4
+@cashCustodyAccountId = cdd9b393-6593-4912-bdbf-2d207bd7817a
+@tradeDateAndTime = {{$datetime iso8601}}
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/ExecuteOrders"
+Content-Type: text/xml; charset=utf-8
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <ExecuteOrders xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Entities>
+                    <OrderExecuteBase xsi:type="ManualOrderExecute">
+                        <BrickId>00000000-0000-0000-0000-000000000000</BrickId>
+                        <CreatedDate>0001-01-01T00:00:00</CreatedDate>
+                        <OrderBrickId>{{orderId}}</OrderBrickId>
+                        <InstrumentAmount>{{amount}}</InstrumentAmount>
+                        <CashAmount xsi:nil="true"/>
+                        <Price>{{price}}</Price>
+                        <TradeDate>{{tradeDateAndTime}}</TradeDate>
+                        <ValueDate>{{$datetime iso8601 2 d}}</ValueDate>
+                        <SettlementDate>{{$datetime iso8601 2 d}}</SettlementDate>
+                        <CounterPartyAccountBrickId>{{counterPartyAccountId}}</CounterPartyAccountBrickId>
+                        <FeeAccountBrickId>{{feeAccountId}}</FeeAccountBrickId>
+                        <CashCustodyAccountBrickId>{{cashCustodyAccountId}}</CashCustodyAccountBrickId>
+                        <InstrumentCustodyAccountBrickId>00000000-0000-0000-0000-000000000000</InstrumentCustodyAccountBrickId>
+                        <TrsInformation>
+                            <TradingVenueBrickId xsi:nil="true"/>
+                            <TRSTradingCapacity>AOTC</TRSTradingCapacity>
+                            <INTC>false</INTC>
+                            <ExecutionWithinFirmType>ALGO</ExecutionWithinFirmType>
+                            <ExecutionWithinFirm_USER xsi:nil="true"/>
+                            <ExecutionWithinFirm_ALGO xsi:nil="true"/>
+                            <TradeTime>{{tradeDateAndTime}}</TradeTime>
+                        </TrsInformation>
+                    </OrderExecuteBase>
+                </Entities>
+            </req>
+        </ExecuteOrders>
+    </s:Body>
+</s:Envelope>
+
+
+### settle trade orders (settle one specified order)
+@settlementDate = {{$datetime iso8601 2 d}}
+@valueDate = {{$datetime iso8601 2 d}}
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/SettleOrders"
+Content-Type: text/xml; charset=utf-8
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <SettleOrders xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Entities>
+                    <OrderSettleBase xsi:type="ManualOrderSettle">
+                        <BrickId>00000000-0000-0000-0000-000000000000</BrickId>
+                        <CreatedDate>0001-01-01T00:00:00</CreatedDate>
+                        <OrderBrickId>{{orderId}}</OrderBrickId>
+                        <CashSettlementDate>{{settlementDate}}</CashSettlementDate>
+                        <InstrumentSettlementDate>{{settlementDate}}</InstrumentSettlementDate>
+                        <CashValueDate>{{valueDate}}</CashValueDate>
+                        <InstrumentValueDate>{{valueDate}}</InstrumentValueDate>
+                    </OrderSettleBase>
+                </Entities>
+            </req>
+        </SettleOrders>
+    </s:Body>
+</s:Envelope>
+
+
+### create business transactions (custom commission on the trande)
+// from one account to another, trade dimension only, with custom fields on super transaction and on first business transaction
+// the transaction will have correct reference to the trade order (the references by OrderId and BusinessEventId on super transaction)
+// the transaction will be visible on trade order note (the reference by NoteId on super transaction)
+@accountFromId = 48d42589-8b74-4804-b762-c7f609b8a3cd
+@accountToId = faec023e-f10d-43e6-b082-0b34d487c1db
+@assetId = 06e093dc-3e8c-4592-b28f-2c48d8a266b1
+@amount = 100.00
+@reference = Manualy created transaction
+@transactionType = Default_Payment_Trade_Cash_Commission
+@tradeDate = {{$datetime iso8601}}
+@businessEventId = 33a2e733-8b71-463b-b62f-789a9e76b427
+
+@noteId = 8ff23626-13c8-4573-bd28-9af6341a5943
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/CreateBusinessTransactions"
+Content-Type: text/xml; charset=utf-8
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <CreateBusinessTransactions xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Entities>
+                    <SuperTransaction>
+                        <BrickId>00000000-0000-0000-0000-000000000000</BrickId>
+                        <CreatedDate>0001-01-01T00:00:00</CreatedDate>
+                        <CustomFields>
+                            <CustomField>
+                                <BrickId>00000000-0000-0000-0000-000000000000</BrickId>
+                                <CreatedDate>0001-01-01T00:00:00</CreatedDate>
+                                <FieldName>SuperCustomField</FieldName>
+                                <Value>super-transaction</Value>
+                                <HiddenFromGui>false</HiddenFromGui>
+                            </CustomField>
+                        </CustomFields>
+                        <BusinessTransactions>
+                            <BusinessTransaction>
+                                <BrickId>00000000-0000-0000-0000-000000000000</BrickId>
+                                <CustomFields>
+                                    <CustomField>
+                                        <BrickId>00000000-0000-0000-0000-000000000000</BrickId>
+                                        <CreatedDate>0001-01-01T00:00:00</CreatedDate>
+                                        <FieldName>TransactionCustomField</FieldName>
+                                        <Value>transaction</Value>
+                                        <HiddenFromGui>false</HiddenFromGui>
+                                    </CustomField>
+                                </CustomFields>
+                                <CreatedDate>0001-01-01T00:00:00</CreatedDate>
+                                <Account>{{accountFromId}}</Account>
+                                <BusinessTransactionType>{{transactionType}}</BusinessTransactionType>
+                                <TransactionReference>{{reference}}</TransactionReference>
+                                <Asset1>{{assetId}}</Asset1>
+                                <Asset2>00000000-0000-0000-0000-000000000000</Asset2>
+                                <AmountAsset1>-{{amount}}</AmountAsset1>
+                                <AmountAsset2>0</AmountAsset2>
+                                <CustodyAccountAsset1>00000000-0000-0000-0000-000000000000</CustodyAccountAsset1>
+                                <CustodyAccountAsset2>00000000-0000-0000-0000-000000000000</CustodyAccountAsset2>
+                                <TradeDate>{{tradeDate}}</TradeDate>
+                                <SettlementDate>0001-01-01T00:00:00</SettlementDate>
+                                <ValueDate>0001-01-01T00:00:00</ValueDate>
+                                <Price>0</Price>
+                                <AcquisitionValue>0</AcquisitionValue>
+                                <AcquisitionValueAccountCurrency>0</AcquisitionValueAccountCurrency>
+                            </BusinessTransaction>
+                            <BusinessTransaction>
+                                <BrickId>00000000-0000-0000-0000-000000000000</BrickId>
+                                <CreatedDate>0001-01-01T00:00:00</CreatedDate>
+                                <Account>{{accountToId}}</Account>
+                                <BusinessTransactionType>{{transactionType}}</BusinessTransactionType>
+                                <TransactionReference>{{reference}}</TransactionReference>
+                                <Asset1>{{assetId}}</Asset1>
+                                <Asset2>00000000-0000-0000-0000-000000000000</Asset2>
+                                <AmountAsset1>{{amount}}</AmountAsset1>
+                                <AmountAsset2>0</AmountAsset2>
+                                <CustodyAccountAsset1>00000000-0000-0000-0000-000000000000</CustodyAccountAsset1>
+                                <CustodyAccountAsset2>00000000-0000-0000-0000-000000000000</CustodyAccountAsset2>
+                                <TradeDate>{{tradeDate}}</TradeDate>
+                                <SettlementDate>0001-01-01T00:00:00</SettlementDate>
+                                <ValueDate>0001-01-01T00:00:00</ValueDate>
+                                <Price>0</Price>
+                                <AcquisitionValue>0</AcquisitionValue>
+                                <AcquisitionValueAccountCurrency>0</AcquisitionValueAccountCurrency>
+                            </BusinessTransaction>
+                        </BusinessTransactions>
+                        <InsurancePolicy>00000000-0000-0000-0000-000000000000</InsurancePolicy>
+                        <InsuranceClaim>00000000-0000-0000-0000-000000000000</InsuranceClaim>
+                        <Batch>00000000-0000-0000-0000-000000000000</Batch>
+                        <BusinessEventId>{{businessEventId}}</BusinessEventId>
+                        <OrderId>{{orderId}}</OrderId>
+                        <NoteId>{{noteId}}</NoteId>
+                    </SuperTransaction>
+                </Entities>
+            </req>
+        </CreateBusinessTransactions>
+    </s:Body>
+</s:Envelope>
+
+
+### get business transactions affecting a specified account
+@accountId = 48d42589-8b74-4804-b762-c7f609b8a3cd
+
+POST https://bfs1.bricknode.com/tbccapitaldev/api/bfsapi.asmx HTTP/1.1
+SOAPAction: "http://tempuri.org/GetBusinessTransactions"
+Content-Type: text/xml; charset=utf-8
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <GetBusinessTransactions xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Args>
+                    <Accounts>
+                        <guid>{{accountId}}</guid>
+                    </Accounts>
+                </Args>
+                <Fields>
+                    {{allBusinessTransactionFields}}
+                </Fields>
+            </req>
+        </GetBusinessTransactions>
+    </s:Body>
+</s:Envelope>
+
+
+

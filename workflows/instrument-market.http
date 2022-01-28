@@ -1,0 +1,275 @@
+### create trading venue (market)
+@marketName = My awesome market
+@marketShortName = SHORT
+@mic = MIC
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/CreateTradingVenues"
+Content-Type: text/xml; charset=utf-8
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <CreateTradingVenues xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Entities>
+                    <CreateTradingVenue>
+                        <BrickId>00000000-0000-0000-0000-000000000000</BrickId>
+                        <CreatedDate>0001-01-01T00:00:00</CreatedDate>
+                        <CustomFields/>
+                        <Name>{{marketName}}</Name>
+                        <ShortName>{{marketShortName}}</ShortName>
+                        <MIC>{{mic}}</MIC>
+                        <IsTradingVenue>true</IsTradingVenue>
+                        <IsMarket>true</IsMarket>
+                        <IsInternal>true</IsInternal>
+                    </CreateTradingVenue>
+                </Entities>
+            </req>
+        </CreateTradingVenues>
+    </s:Body>
+</s:Envelope>
+
+
+### get trading venues (all markets)
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetTradingVenues"
+Content-Type: text/xml; charset=utf-8
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <GetTradingVenues xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Args>
+                    <IsMarket>true</IsMarket>
+                </Args>
+                <Fields>
+                   {{allTradingVenueFields}}
+                </Fields>
+            </req>
+        </GetTradingVenues>
+    </s:Body>
+</s:Envelope>
+
+
+### create new instruments (simple share instrument with manual execution interface as only one and default; with custom field)
+// instrument types: Shares (1), Mutual Funds (2), ETFs (3), Futures (4), Options (5), Warrants (6), Certificates (7), Commodities (8), Indices (9), Bonds (10), Interest Earnings (11), Structured products (12), Loans (13)
+@type = 1
+// instrument statuses: Open (1), Open Admin (2), Closed (3), Removed (4), Open Partner (5), Open Filter (6)
+@status = 2
+// instrument visible status key: Open, OpenAdmin, OpenPartner, PhoneFront, PhonePartner
+@visibleStatusKey = OpenAdmin
+@currencyCode = USD
+@isin = AW3S0M3
+@symbol = MIC_AW3S0M3_USD
+@name = My awesome instrument
+@price = 42.0
+@defaultMarketPlaceId = 241201fc-8a6f-4d1b-bf95-5be6e4f72bc2
+// execute interface (ManualExecutionInterface)
+@defaultCustodyAccountId = 9fcd893e-84e2-41fa-a016-a9bbdc732e89
+@counterPartyId = 346281e6-2ed7-48c4-a358-f80f4945246a
+@counterPartyAccountId = 6a11b5fe-5941-44fc-b38a-58576a48ecdb
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/CreateInstruments"
+Content-Type: text/xml; charset=utf-8
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <CreateInstruments xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Entities>
+                    <Instrument>
+                        <BrickId>00000000-0000-0000-0000-000000000000</BrickId>
+                        <CreatedDate>0001-01-01T00:00:00</CreatedDate>
+                        <CustomFields>
+                            <CustomField>
+                                <BrickId>00000000-0000-0000-0000-000000000000</BrickId>
+                                <CreatedDate>0001-01-01T00:00:00</CreatedDate>
+                                <FieldName>CreatedBy</FieldName>
+                                <Value>ManualRequest</Value>
+                                <HiddenFromGui>false</HiddenFromGui>
+                            </CustomField>
+                        </CustomFields>
+                        <InstrumentType>{{type}}</InstrumentType>
+                        <CurrencyCode>{{currencyCode}}</CurrencyCode>
+                        <ISIN>{{isin}}</ISIN>
+                        <Name>{{name}}</Name>
+                        <LastSubscriptionDate xsi:nil="true"/>
+                        <ExpirationDate>0001-01-01T00:00:00</ExpirationDate>
+                        <Price>{{price}}</Price>
+                        <QuantityDecimals>0</QuantityDecimals>
+                        <DisplayPercentagePrice>false</DisplayPercentagePrice>
+                        <InstrumentStatus>{{status}}</InstrumentStatus>
+                        <IsUnitOrder>false</IsUnitOrder>
+                        <ValueMultiplier>1</ValueMultiplier>
+                        <DisplayMultiplier>1</DisplayMultiplier>
+                        <VisibleStatusKey>{{visibleStatusKey}}</VisibleStatusKey>
+                        <Comment/>
+                        <DisplayDecimalsPrice>6</DisplayDecimalsPrice>
+                        <Symbol>{{symbol}}</Symbol>
+                        <DefaultMarketPlace>{{defaultMarketPlaceId}}</DefaultMarketPlace>
+                        <Issuer>00000000-0000-0000-0000-000000000000</Issuer>
+                        <Organizer>00000000-0000-0000-0000-000000000000</Organizer>
+                        <PriceDate>{{$datetime iso8601}}</PriceDate>
+                        <BuyCommissionPercentage>0</BuyCommissionPercentage>
+                        <SellCommissionPercentage>0</SellCommissionPercentage>
+                        <EarlySellFeePercentage>0</EarlySellFeePercentage>
+                        <ProductCompensationPercentage>0</ProductCompensationPercentage>
+                        <FirstTradeDate xsi:nil="true"/>
+                        <LastTradeDate>0001-01-01T00:00:00</LastTradeDate>
+                        <LockInPeriodDays>0</LockInPeriodDays>
+                        <IsLimitedToAccountTypes>false</IsLimitedToAccountTypes>
+                        <DebtInstrument>false</DebtInstrument>
+                        <PreviousClosePrice>0</PreviousClosePrice>
+                        <WhiteLabel>00000000-0000-0000-0000-000000000000</WhiteLabel>
+                        <HasMifidIIData>false</HasMifidIIData>
+                        <ManagementFeePercentage xsi:nil="true"/>
+                        <FundEntity>00000000-0000-0000-0000-000000000000</FundEntity>
+                        <FundCompany>00000000-0000-0000-0000-000000000000</FundCompany>
+                        <EnableMifidIITenPercentAlert>false</EnableMifidIITenPercentAlert>
+                        <ExecutionInterfaces>
+                            <ExecutionInterface xsi:type="ManualExecutionInterface">
+                                <BrickId>00000000-0000-0000-0000-000000000000</BrickId>
+                                <CreatedDate>0001-01-01T00:00:00</CreatedDate>
+                                <DefaultCustodyAccount>{{defaultCustodyAccountId}}</DefaultCustodyAccount>
+                                <CounterParty>{{counterPartyId}}</CounterParty>
+                                <CounterPartyAccount>{{counterPartyAccountId}}</CounterPartyAccount>
+                                <BuyAmountAllowed>false</BuyAmountAllowed>
+                                <BuyUnitAllowed>true</BuyUnitAllowed>
+                                <SellAmountAllowed>false</SellAmountAllowed>
+                                <SellUnitAllowed>true</SellUnitAllowed>
+                                <IsNominalValueOrderEntry>false</IsNominalValueOrderEntry>
+                                <QuantityDecimals>0</QuantityDecimals>
+                                <MinimumLotSize>1</MinimumLotSize>
+                                <Enabled>false</Enabled>
+                                <IsUnitOrder>false</IsUnitOrder>
+                            </ExecutionInterface>
+                        </ExecutionInterfaces>
+                        <DefaultExecutionInterface>Manual</DefaultExecutionInterface>
+                        <ExcludeFromFeeRelatedSelling>false</ExcludeFromFeeRelatedSelling>
+                    </Instrument>
+                </Entities>
+            </req>
+        </CreateInstruments>
+    </s:Body>
+</s:Envelope>
+
+### get all share instruments (based on type)
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetInstruments"
+Content-Type: text/xml; charset=utf-8
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <GetInstruments xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Args>
+                    <InstrumentType>1</InstrumentType>
+                </Args>
+                <Fields>
+                    {{allInstrumentFields}}
+                </Fields>
+            </req>
+        </GetInstruments>
+    </s:Body>
+</s:Envelope>
+
+
+### update instrument (update only a price of the instrument)
+@instrumentId = 2841d9de-d2bb-43e8-9a58-696c2a213c16
+@updatedPrice = 44.0
+@updatedPriceDate = {{$datetime iso8601}}
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/UpdateInstruments"
+Content-Type: text/xml; charset=utf-8
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <UpdateInstruments xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Entities>
+                    <UpdateInstrument>
+                        <BrickId>{{instrumentId}}</BrickId>
+                        <PriceDate>{{updatedPriceDate}}</PriceDate>
+                        <Price>{{updatedPrice}}</Price>
+                    </UpdateInstrument>
+                </Entities>
+                <Fields>
+                    <CustomFields>false</CustomFields>
+                    <Symbol>false</Symbol>
+                    <PriceDate>true</PriceDate>
+                    <DataSeries>false</DataSeries>
+                    <Value>false</Value>
+                    <DisplayPercentagePrice>false</DisplayPercentagePrice>
+                    <DisplayMultiplier>false</DisplayMultiplier>
+                    <DebtInstrument>false</DebtInstrument>
+                    <InstrumentType>false</InstrumentType>
+                    <CurrencyCode>false</CurrencyCode>
+                    <ISIN>false</ISIN>
+                    <Name>false</Name>
+                    <LastSubscriptionDate>false</LastSubscriptionDate>
+                    <ExpirationDate>false</ExpirationDate>
+                    <Price>true</Price>
+                    <QuantityDecimals>false</QuantityDecimals>
+                    <DisplayDecimalsPrice>false</DisplayDecimalsPrice>
+                    <ValueMultiplier>false</ValueMultiplier>
+                    <InstrumentStatus>false</InstrumentStatus>
+                    <IsUnitOrder>false</IsUnitOrder>
+                    <InstrumentCategorization>false</InstrumentCategorization>
+                    <TaxCountry>false</TaxCountry>
+                    <VisibleStatusKey>false</VisibleStatusKey>
+                    <ExternalReference>false</ExternalReference>
+                    <Comment>false</Comment>
+                    <DefaultMarketPlace>false</DefaultMarketPlace>
+                    <SettlementCalender>false</SettlementCalender>
+                    <Issuer>false</Issuer>
+                    <PreviousClosePrice>true</PreviousClosePrice>
+                    <WhiteLabel>false</WhiteLabel>
+                    <HasMifidIIData>false</HasMifidIIData>
+                    <KnowledgeGroup>false</KnowledgeGroup>
+                    <ExPostCalcMethod>false</ExPostCalcMethod>
+                    <ManagementFeePercentage>false</ManagementFeePercentage>
+                    <FundEntity>false</FundEntity>
+                    <FundCompany>false</FundCompany>
+                    <FeeGroup>false</FeeGroup>
+                    <DatasheetURL>false</DatasheetURL>
+                    <EnableMifidIITenPercentAlert>false</EnableMifidIITenPercentAlert>
+                    <ExecutionInterfaces>false</ExecutionInterfaces>
+                    <DefaultExecutionInterface>false</DefaultExecutionInterface>
+                    <ExcludeFromFeeRelatedSelling>false</ExcludeFromFeeRelatedSelling>
+                </Fields>
+            </req>
+        </UpdateInstruments>
+    </s:Body>
+</s:Envelope>
