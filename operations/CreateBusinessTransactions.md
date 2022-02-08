@@ -11,7 +11,7 @@ Posibility to create transactions: super transactions and their children busines
 | InsuranceClaim | Guid | The Guid of the insurance claim for the super transaction |  | 2.02 |
 | Batch | Guid | The Guid of the batch for the super transaction |  | 2.09 |
 | BusinessEventId | Guid | The Guid of the business event that the super transaction should be connected to. By associating a super transaction to a business event it is possible to include them in various GUI views, for example for corporate actions or other events. |  | 2.27 |
-| OrderId | Guild | The Guid of the order that the super transaction should be connected to.After associating a super transaction to a order, the business transactions inside will be shown with a direct link to the order in the admin UI. |  | 2.40 |
+| OrderId | Guild | The Guid of the order that the super transaction should be connected to. After associating a super transaction to a order, the business transactions inside will be shown with a direct link to the order in the admin UI. |  | 2.40 |
 | NoteId | Guid | The Guid of the note that the super transaction should be connected to. When a link between a node and a transaction is specified then the transaction will be listed on the trade note generated into a PDF. |  | 2.40 |
 
 ## Inputs (Array of BusinessTransactions) inherits from [EntityBase](https://bricknode.atlassian.net/wiki/display/API/EntityBase)

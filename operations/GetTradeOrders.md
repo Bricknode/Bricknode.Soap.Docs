@@ -26,8 +26,8 @@ Endpoint for retrieving orders. Multiple arguments/filters can be specified or c
 | DecisionMakerWithinFirm | Guid | Filter by the BrickId of the person that decided to place the order that led to the deal. | false | 2.12 |
 | OrderTypeKeys | string[] | Filter on OrderTypeKeys (for Internal and manual orders) |  | 2.22 |
 | Resellers | Guid[] | Filter by reseller ids | false | 2.23 |
-| ShortSellingIndicator | Enum | TRS property. The short selling indicator is used in TRS reporting to define if a trade of the type Sell was a short sale or not. The allowed values are:SESH = Short sale with no exemptionSELL = No short sale, selling a current positionSSEX = Short sale with exemptionUNDI = Information not availableNotApplicable = This can be used if the order was a buy order and the short sale indicator is not applicable. This will be set by default by BFS for any Buy orders. |  | 2.27 |
-| FourEyesStatus | Enum | The allowed values are:UnApproved = Waiting for approvalsApproved = The order has been approvedInProgress = Approval process is in progress and waiting for all approvals to be finished |  | 2.27 |
+| ShortSellingIndicator | Enum | TRS property. The short selling indicator is used in TRS reporting to define if a trade of the type Sell was a short sale or not. The allowed values are: SESH = Short sale with no exemption; SELL = No short sale, selling a current position; SSEX = Short sale with exemption; UNDI = Information not available; NotApplicable = This can be used if the order was a buy order and the short sale indicator is not applicable. This will be set by default by BFS for any Buy orders. |  | 2.27 |
+| FourEyesStatus | Enum | The allowed values are: UnApproved = Waiting for approvals; Approved = The order has been approved; InProgress = Approval process is in progress and waiting for all approvals to be finished |  | 2.27 |
 | SubscriptionOrderId | Guid[] | Filter by array of SubscriptionOrderId |  | 2.30 |
 
 ## Response rows (Array)
@@ -67,7 +67,7 @@ Endpoint for retrieving orders. Multiple arguments/filters can be specified or c
 | SellType | string | The value that indicates whether the sell is a short sell or not. Can be on of the following values: "UNDI", "SELL", "SSEX", "SESH" | 2.12 |
 | DecisionMakerWithinFirm | Guid | The BrickId of the person that decided to place the order that led to the deal. | 2.12 |
 | FeeAmount | Decimal | The total sum of fees on the order | 2.21.1 |
-| OrderFeeCategories | OrderFeeCategory[] | Array of OrderFeeCategories. Each OrderFeeCategory consists of:decimal Amountdouble? Percentagestring Keystring TypeKeydecimal MinAmountbool ApplyDiscountGuid? FeeAccountGuid? ToCustodyAccountGuid? FromCustodyAccountbool? HasCreatedTransactionsdecimal CalculatedAmountLabel[] LabelsLabel consists of:string LabelKeystring LabelValue | 2.21.1; Labels from 2.22 |
+| OrderFeeCategories | OrderFeeCategory[] | Array of OrderFeeCategories. Each OrderFeeCategory consists of: decimal Amount; double? Percentage; string Key; string TypeKey; decimal MinAmount; bool ApplyDiscount; Guid? FeeAccount; Guid? ToCustodyAccount; Guid? FromCustodyAccount; bool? HasCreatedTransactions; decimal CalculatedAmount; Label[] Labels; Label consists of: string LabelKey; string LabelValue | 2.21.1; Labels from 2.22 |
 | OrderTypeKey | string | OrderTypeKey for Internal and Manual orders |  |
 | Reseller | Guid | The reseller of the order | 2.23 |
 | FilledCashAmount | decimal | If the orders is filled, this is the amount of cash that is filled. | 2.26 |
@@ -77,7 +77,7 @@ Endpoint for retrieving orders. Multiple arguments/filters can be specified or c
 | BusinessEventId | Guid | The Guid of the associated business event to the order. | 2.40 |
 | NoteId | Guid | The Guid of the associated trade note to the order. | 2.40 |
 
-## Full list of fields for a request
+## Full list of available fields for a request
 
 ```xml
 <Fields>
