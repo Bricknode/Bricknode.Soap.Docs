@@ -1,8 +1,8 @@
 ### create trade orders (a buy order, with custom field)
 @accountId = 48d42589-8b74-4804-b762-c7f609b8a3cd
 @instrumentId = 2841d9de-d2bb-43e8-9a58-696c2a213c16
-@amount = 42.00
-@price = 1.00
+@orderAmount = 1.00
+@orderPrice = 42.00
 
 POST {{apiUrl}} HTTP/1.1
 SOAPAction: "http://tempuri.org/CreateTradeOrders"
@@ -34,13 +34,13 @@ Content-Type: text/xml; charset=utf-8
                         <TradeOrderDirectionKey>Buy</TradeOrderDirectionKey>
                         <Account>{{accountId}}</Account>
                         <Instrument>{{instrumentId}}</Instrument>
-                        <InstrumentAmount>{{amount}}</InstrumentAmount>
+                        <InstrumentAmount>{{orderAmount}}</InstrumentAmount>
                         <CashAmount xsi:nil="true"/>
                         <CommissionAmount>0</CommissionAmount>
                         <OverrideCommissionAmount>false</OverrideCommissionAmount>
                         <IsUnitOrder>true</IsUnitOrder>
                         <ReserveAssets>false</ReserveAssets>
-                        <LimitPrice>{{price}}</LimitPrice>
+                        <LimitPrice>{{orderPrice}}</LimitPrice>
                         <ExternalReference>MyExternalReference</ExternalReference>
                         <ExecutionInterfaceKey>Manual</ExecutionInterfaceKey>
                         <OrderDateAndTime>0001-01-01T00:00:00</OrderDateAndTime>
@@ -89,8 +89,8 @@ Content-Type: text/xml; charset=utf-8
 
 ### execute trade orders
 @orderId = 91eaa03e-1af3-4881-8157-3b6b89f48144
-@amount = 42.00
-@price = 1.00
+@instrumentAmount = 42.00
+@executePrice = 1.00
 @counterPartyAccountId = 6a11b5fe-5941-44fc-b38a-58576a48ecdb
 @feeAccountId = c62aed0a-f792-4615-a7c1-3c6a8ec875a4
 @cashCustodyAccountId = cdd9b393-6593-4912-bdbf-2d207bd7817a
@@ -115,9 +115,9 @@ Content-Type: text/xml; charset=utf-8
                         <BrickId>00000000-0000-0000-0000-000000000000</BrickId>
                         <CreatedDate>0001-01-01T00:00:00</CreatedDate>
                         <OrderBrickId>{{orderId}}</OrderBrickId>
-                        <InstrumentAmount>{{amount}}</InstrumentAmount>
+                        <InstrumentAmount>{{instrumentAmount}}</InstrumentAmount>
                         <CashAmount xsi:nil="true"/>
-                        <Price>{{price}}</Price>
+                        <Price>{{executePrice}}</Price>
                         <TradeDate>{{tradeDateAndTime}}</TradeDate>
                         <ValueDate>{{$datetime iso8601 2 d}}</ValueDate>
                         <SettlementDate>{{$datetime iso8601 2 d}}</SettlementDate>
