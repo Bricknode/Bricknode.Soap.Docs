@@ -4,6 +4,16 @@ Developer guide for the Bricknode SOAP API.
 
 > The best and simplest way how to play with the API is to clone this repository and open it in [Visual Studio Code](https://code.visualstudio.com/download). This allows you to use recommended extension "Rest Client" for sending example requests to the API.
 
+## How to setup manual playground with Visual Studio Code
+
+1. Install [Visual Studio Code](https://code.visualstudio.com/download)
+2. Clone this repository and open it in VS Code
+3. Install the recommended extension `Rest Client`
+4. Setup access credentials in `.vscode/settings.json` and pick the target environment by `F1` -> `Rest Client: Switch Environment`
+5. Run any API request by pressing `Send Request` button directly in any `*.http` document
+
+## How to use the SDK
+
 Here is a how-to article about [the usage of the SDK](howto/use-of-sdk.md).
 
 ## Operations
@@ -36,4 +46,4 @@ Full API documentation [here](https://bricknode.atlassian.net/wiki/spaces/API/ov
 Full examples of how to integrate with the BFS system.
 
 - [Manual order](workflows/manual-order.http): create, execute and settle manual order; create a custom transaction for the order
-- [Instruments and Markets](workflows/instrument-market.http): create venue (market) and instrument; update a price of the instrument
+- [Instruments and Markets](workflows/instrument-market.http): create venue (market) and instrument; update the price of the instrument
