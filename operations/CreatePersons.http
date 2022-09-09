@@ -1,0 +1,50 @@
+### create a new front customer/person
+
+@customerFirstName = John
+@customerLastName = Smith
+@customerUserName = j.smith42
+@customerPassword = passw0rd
+@customerEmail = j.smith42@customer.com
+@customerPersonalNumber = 19951218-0341
+@customerCountry = Sweden
+@customerCity = Skövde
+@customerStreet = King's street
+@customerZipCode = 10010
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/CreatePersons"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soap:Body>
+      <CreatePersons xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+                <UserName>{{userName}}</UserName>
+                <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Entities>
+               <Person>
+                  <Domain>Front</Domain>
+                  <IsNaturalPerson>true</IsNaturalPerson>
+                  <IsApproved>true</IsApproved>
+                  <FirstName>{{customerFirstName}}</FirstName>
+                  <LastName>{{customerLastName}}</LastName>
+                  <UserName>{{customerUserName}}</UserName>
+                  <Password>{{customerPassword}}</Password>
+                  <Email>{{customerEmail}}</Email>
+                  <PersonalNumber>{{customerPersonalNumber}}</PersonalNumber>
+                  <SSN>{{customerPersonalNumber}}</SSN>
+                  <Country>{{customerCountry}}</Country>
+                  <TaxCountry>{{customerCountry}}</TaxCountry>
+                  <AddressCity>{{customerCity}}</AddressCity>
+                  <AddressStreet>{{customerStreet}}</AddressStreet>
+                  <AddressZip>{{customerZipCode}}</AddressZip>
+               </Person>
+            </Entities>
+         </req>
+      </CreatePersons>
+   </soap:Body>
+</soap:Envelope>

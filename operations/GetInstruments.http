@@ -1,0 +1,77 @@
+### get all share instruments (based on type)
+
+// types of instruments 
+// 1 = Shares
+// 2 = Mutual Funds
+// 3 = ETFs
+// 4 = Futures
+// 5 = Options
+// 6 = Warrants
+// 7 = Certificates
+// 8 = Commodities
+// 9 = Indices
+// 10 = Bonds
+// 11 = Interest Earnings
+// 12 = Structured products
+// 13 = Loans
+
+@instrumentType = 1
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetInstruments"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <s:Body>
+        <GetInstruments xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Args>
+                    <InstrumentType>{{instrumentType}}</InstrumentType>
+                </Args>
+                <Fields>
+                    {{allInstrumentFields}}
+                </Fields>
+            </req>
+        </GetInstruments>
+    </s:Body>
+</s:Envelope>
+
+
+### get all instruments on specific market and currency code
+
+@marketMIC = XNAS
+@currencyCode = USD
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetInstruments"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <s:Body>
+        <GetInstruments xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Args>
+                    <MICs>
+                        <string>{{marketMIC}}</string>
+                    </MICs>
+                    <CurrencyCode>{{currencyCode}}</CurrencyCode>
+                </Args>
+                <Fields>
+                    {{allInstrumentFields}}
+                </Fields>
+            </req>
+        </GetInstruments>
+    </s:Body>
+</s:Envelope>

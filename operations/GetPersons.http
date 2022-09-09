@@ -1,0 +1,85 @@
+### get all legal entities
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetPersons"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soap:Body>
+      <GetPersons xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+                <UserName>{{userName}}</UserName>
+                <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Fields>
+                {{allLegalEntityFields}}
+            </Fields>
+         </req>
+      </GetPersons>
+   </soap:Body>
+</soap:Envelope>
+
+
+### get a person with specific user name
+
+@userNameToFind = TBCC_3002
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetPersons"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soap:Body>
+      <GetPersons xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+                <UserName>{{userName}}</UserName>
+                <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Args>
+                <UserName>{{userNameToFind}}</UserName>
+            </Args>
+            <Fields>
+                {{allLegalEntityFields}}
+            </Fields>
+         </req>
+      </GetPersons>
+   </soap:Body>
+</soap:Envelope>
+
+
+### get natural and not-terminated persons in front domain
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetPersons"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soap:Body>
+      <GetPersons xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+                <UserName>{{userName}}</UserName>
+                <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Args>
+                <IsTerminated>false</IsTerminated>
+                <IsNaturalPerson>true</IsNaturalPerson>
+                <UserDomains>
+                    <string>Front</string>
+                </UserDomains>
+            </Args>
+            <Fields>
+                {{allLegalEntityFields}}
+            </Fields>
+         </req>
+      </GetPersons>
+   </soap:Body>
+</soap:Envelope>

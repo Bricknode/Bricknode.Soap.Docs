@@ -1,0 +1,60 @@
+### get all accounts
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetAccounts"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <s:Body>
+      <GetAccounts xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+                <UserName>{{userName}}</UserName>
+                <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Args />
+            <Fields>
+                {{allAccountFields}}
+            </Fields>
+         </req>
+      </GetAccounts>
+   </s:Body>
+</s:Envelope>
+
+
+### get all open and non-locked accounts owned by a specific person
+
+@ownerId = b282a98b-5941-4a8b-922d-335ac1fbb7ed
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetAccounts"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <s:Body>
+      <GetAccounts xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+                <UserName>{{userName}}</UserName>
+                <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Args>
+                <AccountStatus>1</AccountStatus>
+                <LockStatusKeys>
+                    <string>Open</string>
+                </LockStatusKeys>
+                <Owners>
+                    <guid>{{ownerId}}</guid>
+                </Owners>
+            </Args>
+            <Fields>
+                {{allAccountFields}}
+            </Fields>
+         </req>
+      </GetAccounts>
+   </s:Body>
+</s:Envelope>

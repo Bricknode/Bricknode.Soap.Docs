@@ -1,0 +1,33 @@
+### create new open bond instrument in SEK
+
+@bondName = AwesomeBond
+@issuerId = 25d5a96c-87f0-481f-a9b2-bc96e58012fd
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/CreateInstruments"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soap:Body>
+      <CreateInstruments xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+                <UserName>{{userName}}</UserName>
+                <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Entities>
+               <Instrument>
+                  <Name>{{bondName}}</Name>
+                  <Issuer>{{issuerId}}</Issuer>
+                  <InstrumentType>10</InstrumentType>
+                  <CurrencyCode>SEK</CurrencyCode>
+                  <DisplayDecimalsPrice>1</DisplayDecimalsPrice>
+                  <InstrumentStatus>1</InstrumentStatus>
+               </Instrument>
+            </Entities>
+         </req>
+      </CreateInstruments>
+   </soap:Body>
+</soap:Envelope>
