@@ -1,0 +1,54 @@
+### get all background jobs
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetBackgroundJobs"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <s:Body>
+      <GetBackgroundJobs xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+                <UserName>{{userName}}</UserName>
+                <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Args />
+            <Fields>
+                {{allBackgroundJobFields}}
+            </Fields>
+         </req>
+      </GetBackgroundJobs>
+   </s:Body>
+</s:Envelope>
+
+
+### get background jobs based specific state(s)
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetBackgroundJobs"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <s:Body>
+      <GetBackgroundJobs xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+                <UserName>{{userName}}</UserName>
+                <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Args>
+                <StateKeys>
+                    <string>Queued</string>
+                </StateKeys>
+            </Args>
+            <Fields>
+                {{allBackgroundJobFields}}
+            </Fields>
+         </req>
+      </GetBackgroundJobs>
+   </s:Body>
+</s:Envelope>
