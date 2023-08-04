@@ -1,0 +1,62 @@
+### get all reservations
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetReservations"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <s:Body>
+      <GetReservations xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+                <UserName>{{userName}}</UserName>
+                <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Args />
+            <Fields>
+                {{allReservationFields}}
+            </Fields>
+         </req>
+      </GetReservations>
+   </s:Body>
+</s:Envelope>
+
+
+### get reservation for specific asset and based on reference ids
+
+@assetId = 8249c690-c1cf-4906-bed2-e32b7c18c2c5
+@referenceId1 = 69660ef1-7d98-4199-b814-dd5409e29cd0
+@referenceId2 = 3439209c-60b5-4945-b89c-b651695c45ee
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetReservations"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <s:Body>
+      <GetReservations xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+                <UserName>{{userName}}</UserName>
+                <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Args>
+                <Assets>
+                    <guid>{{assetId}}</guid>
+                </Assets>
+                <References>
+                    <guid>{{referenceId1}}</guid>
+                    <guid>{{referenceId2}}</guid>
+                </References>
+            </Args>
+            <Fields>
+                {{allReservationFields}}
+            </Fields>
+         </req>
+      </GetReservations>
+   </s:Body>
+</s:Envelope>
