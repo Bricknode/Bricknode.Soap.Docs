@@ -38,7 +38,7 @@ Full API documentation [here](https://bricknode.atlassian.net/wiki/spaces/API/ov
   - [ExecuteOrders](https://bricknode.atlassian.net/wiki/spaces/API/pages/2714271827/ExecuteOrders)
   - [SettleOrders](https://bricknode.atlassian.net/wiki/spaces/API/pages/2714304848/SettleOrders)
 - Reservations
-  - [CreateReservations]([CreateReservations](https://bricknode.atlassian.net/wiki/spaces/API/pages/1747353889/CreateReservations))
+  - [CreateReservations](https://bricknode.atlassian.net/wiki/spaces/API/pages/1747353889/CreateReservations)
   - [GetReservations](https://bricknode.atlassian.net/wiki/spaces/API/pages/1750007934/GetReservations) - [examples](operations/GetReservations.http)
   - [DeleteReservations](https://bricknode.atlassian.net/wiki/spaces/API/pages/1749385447/DeleteReservations)
 - Transactions
