@@ -1,0 +1,46 @@
+@orderId = d6aa4fb7-e9bc-42e9-8576-a1d35eb0e4db
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/ExecuteOrders"
+Content-Type: text/xml; charset=utf-8
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <ExecuteOrders xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Entities>
+                    <OrderExecuteBase xsi:type="ManualOrderExecute">
+                        <BrickId>00000000-0000-0000-0000-000000000000</BrickId>
+                        <CreatedDate>0001-01-01T00:00:00</CreatedDate>
+                        <OrderBrickId>{{orderId}}</OrderBrickId>
+                        <InstrumentAmount>1</InstrumentAmount>
+                        <CashAmount xsi:nil="true"/>
+                        <Price>10</Price>
+                        <TradeDate>{{$datetime iso8601}}</TradeDate>
+                        <ValueDate>{{$datetime iso8601 2 d}}</ValueDate>
+                        <SettlementDate>{{$datetime iso8601 2 d}}</SettlementDate>
+                        <CounterPartyAccountBrickId>1bad516d-5036-4e15-8de4-4b2380bafae0</CounterPartyAccountBrickId>
+                        <FeeAccountBrickId>4fd8cb17-54dc-4159-878b-8c86ae33c302</FeeAccountBrickId>
+                        <CashCustodyAccountBrickId>906acb07-07d2-49a8-9542-0a0d9748861d</CashCustodyAccountBrickId>
+                        <InstrumentCustodyAccountBrickId>00000000-0000-0000-0000-000000000000</InstrumentCustodyAccountBrickId>
+                        <TrsInformation>
+                            <TradingVenueBrickId xsi:nil="true"/>
+                            <TRSTradingCapacity>AOTC</TRSTradingCapacity>
+                            <INTC>false</INTC>
+                            <ExecutionWithinFirmType>ALGO</ExecutionWithinFirmType>
+                            <ExecutionWithinFirm_USER xsi:nil="true"/>
+                            <ExecutionWithinFirm_ALGO xsi:nil="true"/>
+                            <TradeTime>{{$datetime iso8601}}</TradeTime>
+                        </TrsInformation>
+                    </OrderExecuteBase>
+                </Entities>
+            </req>
+        </ExecuteOrders>
+    </s:Body>
+</s:Envelope>

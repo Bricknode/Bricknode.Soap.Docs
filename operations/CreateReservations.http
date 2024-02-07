@@ -1,0 +1,64 @@
+### create 5 reservations against specific orders
+
+@assetId = 8249c690-c1cf-4906-bed2-e32b7c18c2c5
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/CreateReservations"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <s:Body>
+      <CreateReservations xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+                <UserName>{{userName}}</UserName>
+                <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Entities>
+                <!-- 89566 -->
+                <Reservation>
+                    <Account>695dd9a7-8d65-4e44-85bd-25174dd6ca2b</Account>
+                    <Asset>{{assetId}}</Asset>
+                    <Reference>1319b29b-ac57-494b-9b47-075c30710b84</Reference>
+                    <ReservedAmountTrade>0</ReservedAmountTrade>
+                    <ReservedAmountSettlement>144</ReservedAmountSettlement>
+                </Reservation>
+                <!-- 89212 -->
+                <Reservation>
+                    <Account>46716562-c20b-4663-a662-151718a8373e</Account>
+                    <Asset>{{assetId}}</Asset>
+                    <Reference>4d0cd1cb-3ba9-4afa-a462-3b5a016b7f66</Reference>
+                    <ReservedAmountTrade>0</ReservedAmountTrade>
+                    <ReservedAmountSettlement>100</ReservedAmountSettlement>
+                </Reservation>
+                <!-- 88987 -->
+                <Reservation>
+                    <Account>414032a8-16a2-4fc3-9787-d3d5a21321b3</Account>
+                    <Asset>{{assetId}}</Asset>
+                    <Reference>eed0069f-09e0-4fd3-85ff-1ab5f73793d9</Reference>
+                    <ReservedAmountTrade>0</ReservedAmountTrade>
+                    <ReservedAmountSettlement>1500</ReservedAmountSettlement>
+                </Reservation>
+                <!-- 88978 -->
+                <Reservation>
+                    <Account>a853913f-918c-4398-8c5f-527f3bac64a7</Account>
+                    <Asset>{{assetId}}</Asset>
+                    <Reference>4390ddb5-b321-48a5-810f-482d70816f8f</Reference>
+                    <ReservedAmountTrade>0</ReservedAmountTrade>
+                    <ReservedAmountSettlement>238</ReservedAmountSettlement>
+                </Reservation>
+                <!-- 65816 -->
+                <Reservation>
+                    <Account>32f66925-e57e-4f55-a261-4060416b676f</Account>
+                    <Asset>{{assetId}}</Asset>
+                    <Reference>171c5ce4-1a8b-4afb-8481-55c95bbc3127</Reference>
+                    <ReservedAmountTrade>0</ReservedAmountTrade>
+                    <ReservedAmountSettlement>100</ReservedAmountSettlement>
+                </Reservation>
+            </Entities>
+         </req>
+      </CreateReservations>
+   </s:Body>
+</s:Envelope>

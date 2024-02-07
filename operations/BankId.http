@@ -1,0 +1,53 @@
+### initialite mobile BankId authentication
+
+@personalNumber = 198606024242
+@domain = Front
+@shouldAuthenticatePerson = false
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/BankIdAuthentication"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soap:Body>
+      <BankIdAuthentication xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+                <UserName>{{userName}}</UserName>
+                <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Domain>{{domain}}</Domain>
+            <PersonalNumber>{{personalNumber}}</PersonalNumber>
+            <BankIdType>Mobile</BankIdType>
+            <AuthenticatePerson>{{shouldAuthenticatePerson}}</AuthenticatePerson>
+         </req>
+      </BankIdAuthentication>
+   </soap:Body>
+</soap:Envelope>
+
+
+### get status of the BankId authentication order
+@orderReference = 24f8c11409634890980a093633241f05
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetBankIdStatus"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soap:Body>
+      <GetBankIdStatus xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+                <UserName>{{userName}}</UserName>
+                <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Domain>{{domain}}</Domain>
+            <OrderReference>{{orderReference}}</OrderReference>
+         </req>
+      </GetBankIdStatus>
+   </soap:Body>
+</soap:Envelope>

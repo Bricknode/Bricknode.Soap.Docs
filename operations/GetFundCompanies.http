@@ -1,0 +1,25 @@
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetFundCompanies"
+Content-Type: text/xml; charset=utf-8
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <GetFundCompanies xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Args></Args>
+                <Fields>
+                    <BrickId>true</BrickId>
+                    <FundCompany>true</FundCompany>
+                    <FundCompanyName>true</FundCompanyName>
+                    <CustomFields>true</CustomFields>
+                </Fields>
+            </req>
+        </GetFundCompanies>
+    </s:Body>
+</s:Envelope>
