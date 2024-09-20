@@ -1,0 +1,51 @@
+### get auto giro orders for a specific account and receiver
+
+@accountId = 6d80778f-3131-4592-8612-54f61d295ef8
+@transferReceiverIds = b282a98b-5941-4a8b-922d-335ac1fbb7ed
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetAutoGiroOrders"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <s:Body>
+      <GetAutoGiroOrders xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+                <UserName>{{userName}}</UserName>
+                <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Args>
+               <TransferOrderTypeKeys>
+                  <string>AutoGiroTransferOutOrder</string>
+               </TransferOrderTypeKeys>
+               <TransferReceiverIds>
+                  <guid>{{transferReceiverIds}}</guid>
+               </TransferReceiverIds>
+               <Accounts>
+                  <guid>{{accountId}}</guid>
+               </Accounts>
+            </Args>
+            <Fields>
+               <BrickId>true</BrickId>
+               <CreatedDate>true</CreatedDate>
+               <SettlementDate>true</SettlementDate>
+               <CashAmount>true</CashAmount>
+               <AutogiroOrderStatus>true</AutogiroOrderStatus>
+               <CurrencyCode>true</CurrencyCode>
+               <AutogiroOrderNumber>true</AutogiroOrderNumber>
+               <ExternalReference>true</ExternalReference>
+               <AccountId>true</AccountId>
+               <TransferOrderTypeKey>true</TransferOrderTypeKey>
+               <BatchOrderNumber>true</BatchOrderNumber>
+               <TransferReceiverId>true</TransferReceiverId>
+               <AutoGiroResponseCode>true</AutoGiroResponseCode>
+               <RecurringOrderTemplateIds>true</RecurringOrderTemplateIds>
+            </Fields>
+         </req>
+      </GetAutoGiroOrders>
+   </s:Body>
+</s:Envelope>
+

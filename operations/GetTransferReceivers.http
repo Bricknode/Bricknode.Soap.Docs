@@ -1,0 +1,50 @@
+### get all transfer receivers for a specific person (legal entity)
+
+@personId = b604edce-88fb-425e-8119-e4cdcb2a5083
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetTransferReceivers"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <GetTransferReceivers xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Args>
+                    <Persons>
+                        <guid>{{personId}}</guid>
+                    </Persons>
+                </Args>
+                <Fields>
+                    <CustomFields>false</CustomFields>
+                    <BrickId>true</BrickId>
+                    <Person>true</Person>
+                    <TransferReceiverTypeKey>true</TransferReceiverTypeKey>
+                    <Name>true</Name>
+                    <BankName>true</BankName>
+                    <Comment>false</Comment>
+                    <BatchOrders>true</BatchOrders>
+                    <AccountNo>true</AccountNo>
+                    <CounterPartyClearingNo>false</CounterPartyClearingNo>
+                    <CounterPartyAccountNo>false</CounterPartyAccountNo>
+                    <PayerNumber>false</PayerNumber>
+                    <IBAN>true</IBAN>
+                    <BIC>true</BIC>
+                    <CounterpartyBrickId>false</CounterpartyBrickId>
+                    <CounterpartyName>false</CounterpartyName>
+                    <CreatedDate>false</CreatedDate>
+                    <State>true</State>
+                    <BankGiroNumber>true</BankGiroNumber>
+                    <KID>true</KID>
+                    <Status>true</Status>
+                </Fields>
+            </req>
+        </GetTransferReceivers>
+    </soap:Body>
+</soap:Envelope>

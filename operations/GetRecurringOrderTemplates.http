@@ -1,0 +1,42 @@
+### get recuring order templates for a specific account
+
+@accountId = 29e552cc-db6c-463e-8067-5095861daafe
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetRecurringOrderTemplates"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <s:Body>
+      <GetRecurringOrderTemplates xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+                <UserName>{{userName}}</UserName>
+                <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Args>
+               <Accounts>
+                  <guid>{{accountId}}</guid>
+               </Accounts>
+            </Args>
+            <Fields>
+               <BrickId>true</BrickId>
+               <AccountId>true</AccountId>
+               <CreatedDate>true</CreatedDate>
+               <PeriodicityCode>true</PeriodicityCode>
+               <Day>true</Day>
+               <TransferReceiver>true</TransferReceiver>
+               <Amount>true</Amount>
+               <BusinessDate>true</BusinessDate>
+               <IsRecurringOrder>true</IsRecurringOrder>
+               <Instrument>true</Instrument>
+               <StatusKey>true</StatusKey>
+               <CurrencyCode>true</CurrencyCode>
+            </Fields>
+         </req>
+      </GetRecurringOrderTemplates>
+   </s:Body>
+</s:Envelope>
+

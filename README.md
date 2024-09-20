@@ -26,6 +26,8 @@ Full API documentation [here](https://bricknode.atlassian.net/wiki/spaces/API/ov
 - Accounts
   - [CreateAccounts](https://bricknode.atlassian.net/wiki/spaces/API/pages/52003249/CreateAccounts) - [examples](operations/CreateAccounts.http)
   - [GetAccounts](https://bricknode.atlassian.net/wiki/spaces/API/pages/52002947/GetAccounts) - [examples](operations/GetAccounts.http)
+- Positions
+  - [GetHoldingsOverTime](https://bricknode.atlassian.net/wiki/spaces/API/pages/437157974/GetHoldingsOverTime) - [examples](operations/GetHoldingsOverTime.http)
 - Instruments (Assets)
   - [CreateInstruments](https://bricknode.atlassian.net/wiki/spaces/API/pages/56328268/CreateInstruments) - [examples](operations/CreateInstruments.http)
   - [GetInstruments](https://bricknode.atlassian.net/wiki/spaces/API/pages/58261553/GetInstruments) - [examples](operations/GetInstruments.http)
@@ -37,6 +39,8 @@ Full API documentation [here](https://bricknode.atlassian.net/wiki/spaces/API/ov
   - [GetTradeOrders](https://bricknode.atlassian.net/wiki/spaces/API/pages/52002923/GetTradeOrders) - [examples](operations/GetTradeOrders.http)
   - [ExecuteOrders](https://bricknode.atlassian.net/wiki/spaces/API/pages/2714271827/ExecuteOrders)
   - [SettleOrders](https://bricknode.atlassian.net/wiki/spaces/API/pages/2714304848/SettleOrders)
+  - [GetRecurringOrderTemplates](https://bricknode.atlassian.net/wiki/spaces/API/pages/227770418/GetRecurringOrderTemplates) - [examples](operations/GetRecurringOrderTemplates.http)
+  - [GetAutoGiroOrders](https://bricknode.atlassian.net/wiki/spaces/API/pages/1951499222/GetAutoGiroOrders) - [examples](operations/GetAutoGiroOrders.http)
 - Reservations
   - [CreateReservations](https://bricknode.atlassian.net/wiki/spaces/API/pages/1747353889/CreateReservations)
   - [GetReservations](https://bricknode.atlassian.net/wiki/spaces/API/pages/1750007934/GetReservations) - [examples](operations/GetReservations.http)
@@ -44,6 +48,9 @@ Full API documentation [here](https://bricknode.atlassian.net/wiki/spaces/API/ov
 - Transactions
   - [CreateBusinessTransactions](https://bricknode.atlassian.net/wiki/spaces/API/pages/60031192/CreateBusinessTransaction)
   - [GetBusinessTransactions](https://bricknode.atlassian.net/wiki/spaces/API/pages/58916910/GetBusinessTransactions) - [examples](operations/GetBusinessTransactions.http)
+- TransferReceivers
+  - [GetTransferReceivers](https://bricknode.atlassian.net/wiki/spaces/API/pages/60031203/GetTransferReceiver) - [examples](operations/GetTransferReceivers.http)
+  - [CreateTransferReceivers](https://bricknode.atlassian.net/wiki/spaces/API/pages/175177771/CreateTransferReceivers) - [examples](operations/CreateTransferReceiver.http)
 
 ## Workflows
 

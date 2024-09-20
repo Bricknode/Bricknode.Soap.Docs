@@ -1,0 +1,34 @@
+### creates a concrete transfer receiver for a specific person (legal entity)
+
+@personId = b604edce-88fb-425e-8119-e4cdcb2a5083
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/CreateTransferReceivers"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <CreateTransferReceivers xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Entities>
+                    <TransferReceiver>
+                        <Person>{{personId}}</Person>
+                        <Name>TestSomebankenKonto 1</Name>
+                        <Comment>hello world</Comment>
+                        <BatchOrders>false</BatchOrders>
+                        <TransferReceiverExtraInfo xsi:type="TransferReceiverExtraInfoNorwegianPostGiro">
+                            <AccountNo>123456</AccountNo>
+                            <!-- <BankName>Somebanken</BankName> -->
+                        </TransferReceiverExtraInfo>
+                    </TransferReceiver>
+                </Entities>
+            </req>
+        </CreateTransferReceivers>
+    </soap:Body>
+</soap:Envelope>

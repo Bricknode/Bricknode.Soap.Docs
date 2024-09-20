@@ -22,6 +22,7 @@ Content-Type: text/xml; charset=utf-8
             <AccountTypeKey>HoldingAccount</AccountTypeKey>
             <BaseCurrencyCode>{{baseCurrencyCode}}</BaseCurrencyCode>
             <AccountStatus>1</AccountStatus>
+            <AccountComment>Test comment</AccountComment>
           </Account>
         </Entities>
       </req>

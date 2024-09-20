@@ -1,0 +1,38 @@
+### get holdings for a specific account and in the specified time period (last 30 days)
+
+@accountId = af304fb3-c27c-407a-bede-913264a36798
+@startInterval = {{$datetime iso8601 -30 d}}
+@endInterval = {{$datetime iso8601}}
+@displayCurrencyCode = SEK
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetHoldingsOverTime"
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <s:Body>
+      <GetHoldingsOverTime xmlns="http://tempuri.org/">
+         <req>
+            <Credentials>
+                <UserName>{{userName}}</UserName>
+                <Password>{{password}}</Password>
+            </Credentials>
+            <identify>{{identify}}</identify>
+            <Args>
+               <Start>{{startInterval}}</Start>
+               <End>{{endInterval}}</End>
+               <DisplayCurrencyCode>{{displayCurrencyCode}}</DisplayCurrencyCode>
+               <Accounts>
+                  <guid>{{accountId}}</guid>
+               </Accounts>
+            </Args>
+            <Fields>
+                <Date>true</Date>
+                <Value>true</Value>
+            </Fields>
+         </req>
+      </GetHoldingsOverTime>
+   </s:Body>
+</s:Envelope>
+
