@@ -1,7 +1,7 @@
 ### get business transactions affecting a specified account
 @accountId = 48d42589-8b74-4804-b762-c7f609b8a3cd
 
-POST https://bfs1.bricknode.com/tbccapitaldev/api/bfsapi.asmx HTTP/1.1
+POST {{apiUrl}} HTTP/1.1
 SOAPAction: "http://tempuri.org/GetBusinessTransactions"
 Content-Type: text/xml; charset=utf-8
 
@@ -30,7 +30,7 @@ Content-Type: text/xml; charset=utf-8
 
 
 ### get business transactions by range of trade dates (last 3 days)
-POST https://bfs1.bricknode.com/tbccapitaldev/api/bfsapi.asmx HTTP/1.1
+POST {{apiUrl}} HTTP/1.1
 SOAPAction: "http://tempuri.org/GetBusinessTransactions"
 Content-Type: text/xml; charset=utf-8
 
