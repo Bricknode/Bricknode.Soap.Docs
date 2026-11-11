@@ -31,3 +31,278 @@ Content-Type: text/xml; charset=utf-8
       </CreateInstruments>
    </soap:Body>
 </soap:Envelope>
+
+
+### create minimal share instrument (only the required fields)
+// Symbol must be unique, so bump @minimalRun before every send
+@minimalRun = 001
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/CreateInstruments"
+Content-Type: text/xml; charset=utf-8
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <CreateInstruments xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Entities>
+                    <Instrument>
+                        <InstrumentType>1</InstrumentType>
+                        <CurrencyCode>SEK</CurrencyCode>
+                        <Name>Minimal instrument {{minimalRun}}</Name>
+                        <InstrumentStatus>1</InstrumentStatus>
+                        <Symbol>MINIMAL_{{minimalRun}}</Symbol>
+                        <DisplayDecimalsPrice>2</DisplayDecimalsPrice>
+                    </Instrument>
+                </Entities>
+            </req>
+        </CreateInstruments>
+    </s:Body>
+</s:Envelope>
+
+
+### create share instrument with most properties, two execution interfaces (Manual default + Internal) and a custom field
+// Symbol must be unique, so bump @runNo before every send
+// remove the InternalExecutionInterface block if there is no netting account to use
+@runNo = 119
+// account ids come from the environment (custodyAccountId, cashCustodyAccountId, nettingAccountId in .vscode/settings.json)
+@fullCustodyAccountId = {{custodyAccountId}}
+@fullCashCustodyAccountId = {{cashCustodyAccountId}}
+@fullNettingAccountId = {{nettingAccountId}}
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/CreateInstruments"
+Content-Type: text/xml; charset=utf-8
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <CreateInstruments xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Entities>
+                    <Instrument>
+                        <CustomFields>
+                            <CustomField>
+                                <FieldName>CreatedBy</FieldName>
+                                <Value>ManualRequest</Value>
+                                <HiddenFromGui>false</HiddenFromGui>
+                            </CustomField>
+                        </CustomFields>
+                        <InstrumentType>1</InstrumentType>
+                        <CurrencyCode>SEK</CurrencyCode>
+                        <ISIN>SE00FULL{{runNo}}</ISIN>
+                        <Name>Full instrument {{runNo}}</Name>
+                        <LastSubscriptionDate>2027-06-30T00:00:00</LastSubscriptionDate>
+                        <ExpirationDate>2028-12-31T00:00:00</ExpirationDate>
+                        <Price>123.45</Price>
+                        <QuantityDecimals>2</QuantityDecimals>
+                        <DisplayPercentagePrice>false</DisplayPercentagePrice>
+                        <InstrumentStatus>1</InstrumentStatus>
+                        <IsUnitOrder>true</IsUnitOrder>
+                        <TaxCountry>SE</TaxCountry>
+                        <ValueMultiplier>1</ValueMultiplier>
+                        <DisplayMultiplier>1</DisplayMultiplier>
+                        <VisibleStatusKey>OpenAdmin</VisibleStatusKey>
+                        <ExternalReference>FULL_{{runNo}}</ExternalReference>
+                        <Comment>Created with most properties</Comment>
+                        <DisplayDecimalsPrice>3</DisplayDecimalsPrice>
+                        <Symbol>FULL_{{runNo}}</Symbol>
+                        <PriceDate>{{$datetime iso8601}}</PriceDate>
+                        <BuyCommissionPercentage>0.5</BuyCommissionPercentage>
+                        <SellCommissionPercentage>0.75</SellCommissionPercentage>
+                        <EarlySellFeePercentage>1</EarlySellFeePercentage>
+                        <ProductCompensationPercentage>0.25</ProductCompensationPercentage>
+                        <FirstTradeDate>2026-11-01T00:00:00</FirstTradeDate>
+                        <LastTradeDate>2028-12-30T00:00:00</LastTradeDate>
+                        <DatasheetURL>https://example.com/datasheet.pdf</DatasheetURL>
+                        <LockInPeriodDays>30</LockInPeriodDays>
+                        <IsLimitedToAccountTypes>false</IsLimitedToAccountTypes>
+                        <DebtInstrument>false</DebtInstrument>
+                        <PreviousClosePrice>120.5</PreviousClosePrice>
+                        <HasMifidIIData>false</HasMifidIIData>
+                        <ManagementFeePercentage>1.25</ManagementFeePercentage>
+                        <EnableMifidIITenPercentAlert>true</EnableMifidIITenPercentAlert>
+                        <ExecutionInterfaces>
+                            <ExecutionInterface xsi:type="ManualExecutionInterface">
+                                <DefaultCustodyAccount>{{fullCustodyAccountId}}</DefaultCustodyAccount>
+                                <BuyAmountAllowed>true</BuyAmountAllowed>
+                                <BuyUnitAllowed>true</BuyUnitAllowed>
+                                <SellAmountAllowed>false</SellAmountAllowed>
+                                <SellUnitAllowed>true</SellUnitAllowed>
+                                <IsNominalValueOrderEntry>false</IsNominalValueOrderEntry>
+                                <QuantityDecimals>2</QuantityDecimals>
+                                <MinimumLotSize>0.01</MinimumLotSize>
+                                <Enabled>true</Enabled>
+                                <IsUnitOrder>true</IsUnitOrder>
+                                <DefaultCustodyAccountCash>{{fullCashCustodyAccountId}}</DefaultCustodyAccountCash>
+                            </ExecutionInterface>
+                            <ExecutionInterface xsi:type="InternalExecutionInterface">
+                                <DefaultCustodyAccount>{{fullCustodyAccountId}}</DefaultCustodyAccount>
+                                <BuyAmountAllowed>false</BuyAmountAllowed>
+                                <BuyUnitAllowed>true</BuyUnitAllowed>
+                                <SellAmountAllowed>false</SellAmountAllowed>
+                                <SellUnitAllowed>true</SellUnitAllowed>
+                                <IsNominalValueOrderEntry>false</IsNominalValueOrderEntry>
+                                <QuantityDecimals>0</QuantityDecimals>
+                                <MinimumLotSize>1</MinimumLotSize>
+                                <Enabled>false</Enabled>
+                                <IsUnitOrder>true</IsUnitOrder>
+                                <NettingAccount>{{fullNettingAccountId}}</NettingAccount>
+                            </ExecutionInterface>
+                        </ExecutionInterfaces>
+                        <DefaultExecutionInterface>Manual</DefaultExecutionInterface>
+                        <ExcludeFromFeeRelatedSelling>false</ExcludeFromFeeRelatedSelling>
+                    </Instrument>
+                </Entities>
+            </req>
+        </CreateInstruments>
+    </s:Body>
+</s:Envelope>
+
+
+### get the instrument from the request above by its name (empty while the create is awaiting approval)
+// uses @runNo from the request above, so send it with the same value
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetInstruments"
+Content-Type: text/xml; charset=utf-8
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <GetInstruments xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Args>
+                    <Names>
+                        <string>Full instrument {{runNo}}</string>
+                    </Names>
+                </Args>
+                <Fields>
+                    {{allInstrumentFields}}
+                </Fields>
+            </req>
+        </GetInstruments>
+    </s:Body>
+</s:Envelope>
+
+
+### create three instruments in one call (one with Manual execution interface and custom field)
+// Symbols must be unique, so bump @multiRun before every send
+@multiRun = 001
+@multiCustodyAccountId = {{custodyAccountId}}
+
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/CreateInstruments"
+Content-Type: text/xml; charset=utf-8
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <CreateInstruments xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Entities>
+                    <Instrument>
+                        <InstrumentType>1</InstrumentType>
+                        <CurrencyCode>SEK</CurrencyCode>
+                        <Name>Multi A {{multiRun}}</Name>
+                        <InstrumentStatus>1</InstrumentStatus>
+                        <Symbol>MULTI_A_{{multiRun}}</Symbol>
+                        <DisplayDecimalsPrice>2</DisplayDecimalsPrice>
+                        <ExternalReference>MULTI_A_{{multiRun}}</ExternalReference>
+                    </Instrument>
+                    <Instrument>
+                        <CustomFields>
+                            <CustomField>
+                                <FieldName>CreatedBy</FieldName>
+                                <Value>Only on Multi B</Value>
+                                <HiddenFromGui>false</HiddenFromGui>
+                            </CustomField>
+                        </CustomFields>
+                        <InstrumentType>1</InstrumentType>
+                        <CurrencyCode>EUR</CurrencyCode>
+                        <Name>Multi B {{multiRun}}</Name>
+                        <InstrumentStatus>1</InstrumentStatus>
+                        <Symbol>MULTI_B_{{multiRun}}</Symbol>
+                        <DisplayDecimalsPrice>4</DisplayDecimalsPrice>
+                        <ExternalReference>MULTI_B_{{multiRun}}</ExternalReference>
+                        <ExecutionInterfaces>
+                            <ExecutionInterface xsi:type="ManualExecutionInterface">
+                                <DefaultCustodyAccount>{{multiCustodyAccountId}}</DefaultCustodyAccount>
+                                <BuyAmountAllowed>true</BuyAmountAllowed>
+                                <BuyUnitAllowed>false</BuyUnitAllowed>
+                                <SellAmountAllowed>true</SellAmountAllowed>
+                                <SellUnitAllowed>false</SellUnitAllowed>
+                                <QuantityDecimals>4</QuantityDecimals>
+                                <MinimumLotSize>0.0001</MinimumLotSize>
+                                <Enabled>true</Enabled>
+                                <IsUnitOrder>false</IsUnitOrder>
+                            </ExecutionInterface>
+                        </ExecutionInterfaces>
+                        <DefaultExecutionInterface>Manual</DefaultExecutionInterface>
+                    </Instrument>
+                    <Instrument>
+                        <InstrumentType>1</InstrumentType>
+                        <CurrencyCode>USD</CurrencyCode>
+                        <Name>Multi C {{multiRun}}</Name>
+                        <InstrumentStatus>1</InstrumentStatus>
+                        <Symbol>MULTI_C_{{multiRun}}</Symbol>
+                        <DisplayDecimalsPrice>2</DisplayDecimalsPrice>
+                        <ExternalReference>MULTI_C_{{multiRun}}</ExternalReference>
+                    </Instrument>
+                </Entities>
+            </req>
+        </CreateInstruments>
+    </s:Body>
+</s:Envelope>
+
+
+### get the three instruments from the request above by their names (only approved ones are returned)
+// uses @multiRun from the request above, so send it with the same value
+POST {{apiUrl}} HTTP/1.1
+SOAPAction: "http://tempuri.org/GetInstruments"
+Content-Type: text/xml; charset=utf-8
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <GetInstruments xmlns="http://tempuri.org/">
+            <req>
+                <Credentials>
+                    <UserName>{{userName}}</UserName>
+                    <Password>{{password}}</Password>
+                </Credentials>
+                <identify>{{identify}}</identify>
+                <Args>
+                    <Names>
+                        <string>Multi A {{multiRun}}</string>
+                        <string>Multi B {{multiRun}}</string>
+                        <string>Multi C {{multiRun}}</string>
+                    </Names>
+                </Args>
+                <Fields>
+                    {{allInstrumentFields}}
+                </Fields>
+            </req>
+        </GetInstruments>
+    </s:Body>
+</s:Envelope>
